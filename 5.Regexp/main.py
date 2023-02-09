@@ -7,6 +7,7 @@ with open("phonebook_raw.csv", 'r', encoding='utf-8') as f:
     contacts_list = list(rows)
 
 # Буду использовать промежуточный словарь для отслеживания дубликатов записи,
+# т.к. нет явного ключа, считаю, что нет людей с одинаковыми ФИО
 # отслеживание по связке ФИО, пустые поля существующей записи будут обновляться
 new_list = {}
 
@@ -14,10 +15,10 @@ new_list = {}
 #    firstname и surname соответственно.
 #    В записной книжке изначально может быть Ф + ИО, ФИО, а может быть сразу правильно: Ф+И+О
 
-#перебираю записи в общем списке без заголовка
+# перебираю записи в общем списке без заголовка
 for contact in contacts_list[1:]:
 
-#для начала поймаю связку ФИО в кортеж фиксированной длины
+    # для начала поймаю связку ФИО в кортеж фиксированной длины
     string = ','.join(contact)
     fio_pattern_old = re.compile(r'([А-Я]\w*)?\W([А-Я]\w*)?\W([А-Я]\w*)?\W')
     fio_new = fio_pattern_old.findall(string)[0]
@@ -36,7 +37,7 @@ for contact in contacts_list[1:]:
             phone_ext = ' доб.' + pn[0][6]
         else:
             phone_ext = ''
-        
+
         new_phone = raw_phone + phone_ext
     else:
         new_phone = ''
@@ -86,4 +87,3 @@ with open("phonebook.csv", "w", encoding='utf-8', newline='') as f:
     datawriter = csv.writer(f, delimiter=',')
     # Вместо contacts_list подставьте свой список
     datawriter.writerows(new_adressbook)
-
