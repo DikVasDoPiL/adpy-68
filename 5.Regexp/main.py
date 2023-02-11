@@ -56,10 +56,11 @@ for contact in contacts_list[1:]:
 # 3. объединить все дублирующиеся записи о человеке в одну.
 
 # проверяю через False есть ли ФИО ключ в словаре. если да, то дополняю запись.
-    if fio_new not in new_list.keys():
-        new_list[fio_new] = new_string
+    temp_key = fio_new[:1]
+    if temp_key not in new_list.keys():
+        new_list[temp_key] = new_string
     else:
-        ts = new_list[fio_new]
+        ts = new_list[temp_key]
         if not ts[0]:
             ts[0] = lastname
         if not ts[1]:
@@ -82,7 +83,7 @@ for i in new_list.values():
 
 # pprint(contacts_list)
 pprint(new_adressbook)
-print('Job Done')
+pprint('Job Done')
 with open("phonebook.csv", "w", encoding='utf-8', newline='') as f:
     datawriter = csv.writer(f, delimiter=',')
     # Вместо contacts_list подставьте свой список
