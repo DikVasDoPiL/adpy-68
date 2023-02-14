@@ -54,7 +54,7 @@ def get_result(vacancies):
 
 if __name__ == '__main__':
     ua = UserAgent()
-    URL = 'https://spb.hh.ru/search/vacancy?text=python&area=1&area=2'
+    URL = 'https://spb.hh.ru/search/vacancy?area=1&area=2&ored_clusters=true&text=python&order_by=publication_time'
     HEADERS = {
         "Accept-Language": "ru-RU,ru;q=0.5",
         "User-Agent": ua.random
